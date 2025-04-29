@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz training "De AVG aangepast aan de medische sector"</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            line-height: 1.1;
+        }
+        .container {
+            width: 595px;
+            height: 420px;
+            margin: auto;
+            overflow: hidden;
+            display: none; /* Inhoud aanvankelijk verbergen */
+        }
+        .quiz-container {
+            background: #ffffff; /* Witte achtergrondkleur voor contrast */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: auto;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        h2 {
+            color: #003765; /* SYNLAB Donkerblauw */
+            text-align: center;
+        }
+        .question {
+            font-size: 1.2em;
+            color: #003765; /* SYNLAB Donkerblauw */
+            text-align: justify;
+            display: inline-block;
+            width: 100%;
+            word-wrap: break-word;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 5px; /* Réduire l'espacement entre la question et les options */
+        }
+        .options li {
+            margin: 10px 0; /* Réduire l'espacement entre les options */
+            color: #003765; /* SYNLAB Donkerblauw */
+            display: flex;
+            align-items: flex-start;
+        }
+        .options li label {
+            display: flex;
+            align-items: center;
+        }
+        .options li input[type="radio"],
+        .options li input[type="checkbox"] {
+            margin-right: 10px;
+            align-self: flex-start;
+        }
+        .options li span {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 1.5;
+            text-align: justify;
+        }
+        .submit-btn {
+            background: #003765; /* SYNLAB Donkerblauw */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            align-self: center;
+            font-size: 1rem; /* Tekstgrootte */
+        }
+        .submit-btn:hover {
+            background: #002244;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 1em;
+            color: red;
+            text-align: justify;
+        }
+    </style>
+    <!-- SweetAlert toevoegen -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container" id="quiz-container">
+        <div class="quiz-container">
+            <h2>Quiz SYNLAB - AVG Training</h2>
+            <div id="quiz"></div>
+            <button class="submit-btn" onclick="submitQuiz()">Ik bevestig mijn antwoord</button>
+            <div id="feedback" class="feedback"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Tijd voor de quiz!',
+                html: 'Klik op "Ik ben klaar" om te beginnen.',
+                showConfirmButton: true,
+                confirmButtonText: 'Ik ben klaar',
+                confirmButtonColor: '#003765',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('quiz-container').style.display = 'block'; // Inhoud weergeven
+                    loadQuizScript();
+                }
+            });
+        });
+
+        function loadQuizScript() {
+            const script = document.createElement('script');
+            script.src = 'quiz_avg.js';
+            script.onload = startQuiz;
+            document.head.appendChild(script);
+        }
+
+        function startQuiz() {
+            // Initialisatie van de quiz na het laden van het script
+            if (typeof initQuiz === 'function') {
+                initQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            // Logica voor het indienen van de quiz
+        }
+    </script>
+</body>
+</html>
